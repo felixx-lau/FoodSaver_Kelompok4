@@ -121,15 +121,33 @@
             android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp"/>
 
-        <!-- Link ke Partner Login -->
-        <TextView
-            android:id="@+id/tvGoToPartnerLogin"
+        <!-- Link ke Partner Login & Register -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Masuk sebagai Partner →"
-            android:textSize="13sp"
-            android:textColor="#4CAF50"
-            android:layout_marginBottom="32dp"/>
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="32dp">
+
+            <TextView
+                android:id="@+id/tvGoToPartnerLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Masuk sebagai Partner →"
+                android:textSize="13sp"
+                android:textColor="#4CAF50"
+                android:layout_marginBottom="8dp"
+                android:padding="4dp"/>
+
+            <TextView
+                android:id="@+id/tvGoToPartnerRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ingin jadi Penjual? Daftar sebagai Partner"
+                android:textSize="13sp"
+                android:textColor="#888888"
+                android:padding="4dp"/>
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

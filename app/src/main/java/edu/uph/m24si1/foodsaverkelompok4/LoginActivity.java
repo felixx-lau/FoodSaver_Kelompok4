@@ -14,7 +14,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText etEmail, etPassword;
     private Button btnLogin;
-    private TextView tvGoToRegister, tvGoToPartnerLogin;
+    private TextView tvGoToRegister, tvGoToPartnerLogin, tvGoToPartnerRegister;
 
     private DatabaseHelper dbHelper;
     private SessionManager sessionManager;
@@ -43,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         tvGoToRegister = findViewById(R.id.tvGoToRegister);
         tvGoToPartnerLogin = findViewById(R.id.tvGoToPartnerLogin);
+        tvGoToPartnerRegister = findViewById(R.id.tvGoToPartnerRegister);
     }
 
     private void setupClickListeners() {
@@ -54,6 +55,12 @@ public class LoginActivity extends AppCompatActivity {
 
         tvGoToPartnerLogin.setOnClickListener(v -> {
             startActivity(new Intent(this, PartnerLoginActivity.class));
+        });
+
+        tvGoToPartnerRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(this, RegisterActivity.class);
+            intent.putExtra("role", Constants.ROLE_PARTNER);
+            startActivity(intent);
         });
     }
 

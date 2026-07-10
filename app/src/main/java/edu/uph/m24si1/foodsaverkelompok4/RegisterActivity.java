@@ -14,10 +14,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText etName, etEmail, etPassword, etConfirmPassword;
     private Button btnRegister;
-    private TextView tvBack, tvGoToLogin;
+    private TextView tvBack, tvGoToLogin, tvSwitchToPartner;
 
     private DatabaseHelper dbHelper;
     private SessionManager sessionManager;
+    private String role;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +28,23 @@ public class RegisterActivity extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
         sessionManager = new SessionManager(this);
 
+        // Ambil role dari Intent (default ke ROLE_USER)
+        role = getIntent().getStringExtra("role");
+        if (role == null) {
+            role = Constants.ROLE_USER;
+        }
+
         initViews();
         setupClickListeners();
+        updateUIBasedOnRole();
+    }
+
+    private void updateUIBasedOnRole() {
+        if (Constants.ROLE_PARTNER.equals(role)) {
+            TextView tvTitle = findViewById(R.id.tvTitle);
+            if (tvTitle != null) tvTitle.setText("Daftar Akun Partner");
+            tvSwitchToPartner.setVisibility(android.view.View.GONE);
+        }
     }
 
     private void initViews() {
@@ -39,6 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         tvBack = findViewById(R.id.tvBack);
         tvGoToLogin = findViewById(R.id.tvGoToLogin);
+        tvSwitchToPartner = findViewById(R.id.tvSwitchToPartner);
     }
 
     private void setupClickListeners() {
@@ -49,6 +66,11 @@ public class RegisterActivity extends AppCompatActivity {
         tvGoToLogin.setOnClickListener(v -> {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
+        });
+
+        tvSwitchToPartner.setOnClickListener(v -> {
+            role = Constants.ROLE_PARTNER;
+            updateUIBasedOnRole();
         });
     }
 
@@ -100,7 +122,7 @@ public class RegisterActivity extends AppCompatActivity {
         newUser.setName(name);
         newUser.setEmail(email);
         newUser.setPassword(password);
-        newUser.setRole(Constants.ROLE_USER);
+        newUser.setRole(role);
 
         // Simpan ke database
         boolean success = dbHelper.registerUser(newUser);
@@ -119,8 +141,13 @@ public class RegisterActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Akun berhasil dibuat!", Toast.LENGTH_SHORT).show();
 
-        // Langsung ke Home
-        Intent intent = new Intent(this, HomeActivity.class);
+        // Redirect based on role
+        Intent intent;
+        if (Constants.ROLE_PARTNER.equals(role)) {
+            intent = new Intent(this, PartnerDashboardActivity.class);
+        } else {
+            intent = new Intent(this, HomeActivity.class);
+        }
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

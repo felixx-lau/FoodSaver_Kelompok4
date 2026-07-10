@@ -91,7 +91,28 @@
             android:textStyle="bold"
             android:backgroundTint="#4CAF50"
             android:textColor="#FFFFFF"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="16dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="24dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Belum punya akun partner? "
+                android:textSize="13sp"
+                android:textColor="#888888"/>
+            <TextView
+                android:id="@+id/tvGoToPartnerRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Daftar Sekarang"
+                android:textSize="13sp"
+                android:textColor="#4CAF50"
+                android:textStyle="bold"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tvBackToUser"

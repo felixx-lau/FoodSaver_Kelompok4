@@ -24,6 +24,7 @@
             android:layout_marginBottom="24dp"/>
 
         <TextView
+            android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Buat Akun Baru"
@@ -137,7 +138,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -155,6 +157,16 @@
                 android:textColor="#4CAF50"
                 android:textStyle="bold"/>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvSwitchToPartner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ingin mendaftar sebagai Partner?"
+            android:textSize="13sp"
+            android:textColor="#888888"
+            android:layout_gravity="center"
+            android:padding="8dp"/>
 
     </LinearLayout>
 </ScrollView>
