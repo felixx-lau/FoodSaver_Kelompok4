@@ -1,6 +1,334 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="24dp">
+
+        <!-- Foto makanan + tombol back -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp">
+
+            <ImageView
+                android:id="@+id/imgFood"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:background="#E8F5E9"
+                android:src="@android:drawable/ic_menu_gallery"/>
+
+            <!-- Tombol kembali -->
+            <TextView
+                android:id="@+id/tvBack"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:text="‹"
+                android:textSize="24sp"
+                android:textColor="#1A1A1A"
+                android:gravity="center"
+                android:background="#FFFFFF"
+                android:layout_margin="12dp"/>
+
+            <!-- Badge diskon -->
+            <TextView
+                android:id="@+id/tvDiscountBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hemat 40%"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="#2E7D32"
+                android:background="#E8F5E9"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:layout_gravity="top|end"
+                android:layout_margin="12dp"/>
+        </FrameLayout>
+
+        <!-- Info makanan -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:padding="16dp"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/tvFoodName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nama Makanan"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#1A1A1A"
+                android:layout_marginBottom="4dp"/>
+
+            <TextView
+                android:id="@+id/tvPartnerInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama Toko · sisa 5 porsi"
+                android:textSize="13sp"
+                android:textColor="#888888"
+                android:layout_marginBottom="12dp"/>
+
+            <!-- Harga -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tvDiscountPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rp15.000"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="#1A1A1A"/>
+
+                <TextView
+                    android:id="@+id/tvOriginalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rp25.000"
+                    android:textSize="14sp"
+                    android:textColor="#AAAAAA"
+                    android:paintFlags="1"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Deskripsi -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:padding="16dp"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Deskripsi"
+                android:textSize="13sp"
+                android:textColor="#888888"
+                android:layout_marginBottom="6dp"/>
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:textSize="14sp"
+                android:textColor="#333333"/>
+        </LinearLayout>
+
+        <!-- Lokasi penjual -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:padding="16dp"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="📍 Lokasi penjual"
+                android:textSize="13sp"
+                android:textColor="#888888"
+                android:layout_marginBottom="8dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="#F5F5F5"
+                android:padding="10dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🏪  "
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/tvAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Alamat penjual"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="#1A1A1A"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Cara ambil -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:padding="16dp"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cara ambil pesanan"
+                android:textSize="13sp"
+                android:textColor="#888888"
+                android:layout_marginBottom="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/btnPickup"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="#E8F5E9"
+                    android:layout_marginEnd="6dp">
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🚶" android:textSize="18sp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Pickup" android:textSize="13sp" android:textColor="#2E7D32" android:textStyle="bold"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/btnDelivery"
+                    android:layout_width="0dp"
+                    android:layout_height="56dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="#F5F5F5"
+                    android:layout_marginStart="6dp">
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🚴" android:textSize="18sp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Delivery" android:textSize="13sp" android:textColor="#333333"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Input alamat delivery (hidden by default) -->
+            <EditText
+                android:id="@+id/etDeliveryAddress"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="Masukkan alamat pengantaran"
+                android:inputType="textPostalAddress"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <!-- Jadwal -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#FFFFFF"
+            android:padding="16dp"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🕐 Jadwal ambil / antar"
+                android:textSize="13sp"
+                android:textColor="#888888"
+                android:layout_marginBottom="10dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="6dp">
+
+                <TextView
+                    android:id="@+id/slot1"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="17.00 - 17.30"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:background="#F5F5F5"
+                    android:layout_marginEnd="6dp"/>
+
+                <TextView
+                    android:id="@+id/slot2"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="17.30 - 18.00"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:background="#F5F5F5"
+                    android:layout_marginStart="6dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/slot3"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="18.00 - 18.30"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:background="#F5F5F5"
+                    android:layout_marginEnd="6dp"/>
+
+                <TextView
+                    android:id="@+id/slot4"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:text="18.30 - 19.00"
+                    android:textSize="12sp"
+                    android:gravity="center"
+                    android:background="#F5F5F5"
+                    android:layout_marginStart="6dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Tombol booking -->
+        <Button
+            android:id="@+id/btnBooking"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Booking Sekarang"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:backgroundTint="#4CAF50"
+            android:textColor="#FFFFFF"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+    </LinearLayout>
+</ScrollView>
