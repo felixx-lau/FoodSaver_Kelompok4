@@ -1,6 +1,7 @@
 package edu.uph.m24si1.foodsaverkelompok4;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
             tvPartnerName.setText(food.getPartnerAddress());
             tvDiscountPrice.setText("Rp" + (int) food.getDiscountPrice());
             tvOriginalPrice.setText("Rp" + (int) food.getOriginalPrice());
+            tvOriginalPrice.setPaintFlags(tvOriginalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
             // Hitung persentase diskon
             if (food.getOriginalPrice() > 0) {

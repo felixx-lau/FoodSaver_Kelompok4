@@ -1,6 +1,7 @@
 package edu.uph.m24si1.foodsaverkelompok4;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -85,6 +86,7 @@ public class FoodDetailActivity extends AppCompatActivity {
         tvPartnerInfo.setText(partnerAddress + " · sisa " + quantity + " porsi");
         tvDiscountPrice.setText("Rp" + (int) discountPrice);
         tvOriginalPrice.setText("Rp" + (int) originalPrice);
+        tvOriginalPrice.setPaintFlags(tvOriginalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         tvAddress.setText(partnerAddress != null ? partnerAddress : "-");
         tvDescription.setText(description != null && !description.isEmpty() ? description : "-");
 

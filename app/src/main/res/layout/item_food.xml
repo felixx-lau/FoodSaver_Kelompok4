@@ -79,7 +79,6 @@
                     android:text="Rp0"
                     android:textSize="11sp"
                     android:textColor="#AAAAAA"
-                    android:paintFlags="8"
                     android:layout_marginStart="6dp"/>
             </LinearLayout>
         </LinearLayout>

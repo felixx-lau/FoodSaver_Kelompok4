@@ -105,7 +105,6 @@
                     android:text="Rp25.000"
                     android:textSize="14sp"
                     android:textColor="#AAAAAA"
-                    android:paintFlags="1"
                     android:layout_marginStart="8dp"/>
             </LinearLayout>
         </LinearLayout>

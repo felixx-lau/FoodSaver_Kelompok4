@@ -1,40 +1,72 @@
 package edu.uph.m24si1.foodsaverkelompok4;
 
-public class User {
-    private String uid;
-    private String name;
-    private String email;
-    private String password; // ditambah karena pakai SQLite, bukan Firebase Auth
-    private String role;     // "user" atau "partner"
-    private long createdAt;
+public class Booking {
+    private String bookingId;
+    private String userId;
+    private String foodId;
+    private String partnerId;
+    private String foodName;
+    private String userName;
+    private int quantity;
+    private String status;
+    private String deliveryMethod;
+    private String deliveryAddress;
+    private String scheduledTimeSlot;
+    private long timestamp;
 
-    // Constructor kosong — wajib ada untuk konversi dari SQLite cursor
-    public User() {}
+    public Booking() {}
 
-    public User(String uid, String name, String email, String password, String role, long createdAt) {
-        this.uid = uid;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-        this.createdAt = createdAt;
+    public Booking(String bookingId, String userId, String foodId, String partnerId, 
+                   String foodName, String userName, int quantity, String status, 
+                   String deliveryMethod, String deliveryAddress, String scheduledTimeSlot, 
+                   long timestamp) {
+        this.bookingId = bookingId;
+        this.userId = userId;
+        this.foodId = foodId;
+        this.partnerId = partnerId;
+        this.foodName = foodName;
+        this.userName = userName;
+        this.quantity = quantity;
+        this.status = status;
+        this.deliveryMethod = deliveryMethod;
+        this.deliveryAddress = deliveryAddress;
+        this.scheduledTimeSlot = scheduledTimeSlot;
+        this.timestamp = timestamp;
     }
 
-    public String getUid() { return uid; }
-    public void setUid(String uid) { this.uid = uid; }
+    public String getBookingId() { return bookingId; }
+    public void setBookingId(String bookingId) { this.bookingId = bookingId; }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getUserId() { return userId; }
+    public void setUserId(String userId) { this.userId = userId; }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public String getFoodId() { return foodId; }
+    public void setFoodId(String foodId) { this.foodId = foodId; }
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    public String getPartnerId() { return partnerId; }
+    public void setPartnerId(String partnerId) { this.partnerId = partnerId; }
 
-    public String getRole() { return role; }
-    public void setRole(String role) { this.role = role; }
+    public String getFoodName() { return foodName; }
+    public void setFoodName(String foodName) { this.foodName = foodName; }
 
-    public long getCreatedAt() { return createdAt; }
-    public void setCreatedAt(long createdAt) { this.createdAt = createdAt; }
+    public String getUserName() { return userName; }
+    public void setUserName(String userName) { this.userName = userName; }
+
+    public int getQuantity() { return quantity; }
+    public void setQuantity(int quantity) { this.quantity = quantity; }
+
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
+    public String getDeliveryMethod() { return deliveryMethod; }
+    public void setDeliveryMethod(String deliveryMethod) { this.deliveryMethod = deliveryMethod; }
+
+    public String getDeliveryAddress() { return deliveryAddress; }
+    public void setDeliveryAddress(String deliveryAddress) { this.deliveryAddress = deliveryAddress; }
+
+    public String getScheduledTimeSlot() { return scheduledTimeSlot; }
+    public void setScheduledTimeSlot(String scheduledTimeSlot) { this.scheduledTimeSlot = scheduledTimeSlot; }
+
+    public long getTimestamp() { return timestamp; }
+    public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
 }
