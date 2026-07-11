@@ -3,10 +3,9 @@ package edu.uph.m24si1.foodsaverkelompok4;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,7 +14,9 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 
 import com.bumptech.glide.Glide;
 
@@ -23,15 +24,21 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 public class PartnerFoodFormActivity extends AppCompatActivity {
 
     private TextView tvBack, tvTitle;
     private EditText etName, etDescription, etOriginalPrice, etDiscountPrice;
-    private EditText etQuantity, etAddress, etPhotoUrl;
+    private EditText etQuantity, etAddress;
     private ImageView imgPreview;
     private Button btnSave, btnPickPhoto;
+
+    private String selectedPhotoPath = null;
+    private Uri cameraImageUri = null;
 
     private DatabaseHelper dbHelper;
     private SessionManager sessionManager;
@@ -40,7 +47,8 @@ public class PartnerFoodFormActivity extends AppCompatActivity {
     private String foodId = null;
     private Food existingFood = null;
 
-    private ActivityResultLauncher<Intent> imagePickerLauncher;
+    private ActivityResultLauncher<Intent> galleryLauncher;
+    private ActivityResultLauncher<Intent> cameraLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +62,7 @@ public class PartnerFoodFormActivity extends AppCompatActivity {
         foodId = getIntent().getStringExtra("foodId");
 
         initViews();
-        setupImagePicker();
+        setupLaunchers();
         setupClickListeners();
 
         if (isEdit && foodId != null) {
@@ -74,14 +82,14 @@ public class PartnerFoodFormActivity extends AppCompatActivity {
         etDiscountPrice = findViewById(R.id.etDiscountPrice);
         etQuantity = findViewById(R.id.etQuantity);
         etAddress = findViewById(R.id.etAddress);
-        etPhotoUrl = findViewById(R.id.etPhotoUrl);
         imgPreview = findViewById(R.id.imgPreview);
         btnPickPhoto = findViewById(R.id.btnPickPhoto);
         btnSave = findViewById(R.id.btnSave);
     }
 
-    private void setupImagePicker() {
-        imagePickerLauncher = registerForActivityResult(
+    private void setupLaunchers() {
+        // Gallery Launcher
+        galleryLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
@@ -89,13 +97,82 @@ public class PartnerFoodFormActivity extends AppCompatActivity {
                         if (selectedImageUri != null) {
                             String savedPath = saveImageToInternalStorage(selectedImageUri);
                             if (savedPath != null) {
-                                etPhotoUrl.setText(savedPath);
+                                selectedPhotoPath = savedPath;
                                 Glide.with(this).load(savedPath).into(imgPreview);
                             }
                         }
                     }
                 }
         );
+
+        // Camera Launcher
+        cameraLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        if (cameraImageUri != null) {
+                            String savedPath = saveImageToInternalStorage(cameraImageUri);
+                            if (savedPath != null) {
+                                selectedPhotoPath = savedPath;
+                                Glide.with(this).load(savedPath).into(imgPreview);
+                            }
+                        }
+                    }
+                }
+        );
+    }
+
+    private void setupClickListeners() {
+        tvBack.setOnClickListener(v -> finish());
+        btnSave.setOnClickListener(v -> handleSave());
+
+        // Permudah: klik tombol atau klik gambar pratinjau
+        btnPickPhoto.setOnClickListener(v -> showImagePickerDialog());
+        imgPreview.setOnClickListener(v -> showImagePickerDialog());
+    }
+
+    private void showImagePickerDialog() {
+        String[] options = {"Ambil Foto (Kamera)", "Pilih dari Galeri"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Pilih Foto Makanan");
+        builder.setItems(options, (dialog, which) -> {
+            if (which == 0) {
+                openCamera();
+            } else {
+                openGallery();
+            }
+        });
+        builder.show();
+    }
+
+    private void openGallery() {
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        galleryLauncher.launch(intent);
+    }
+
+    private void openCamera() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File photoFile = null;
+        try {
+            photoFile = createTempImageFile();
+        } catch (Exception ex) {
+            Toast.makeText(this, "Gagal membuat file foto", Toast.LENGTH_SHORT).show();
+        }
+
+        if (photoFile != null) {
+            cameraImageUri = FileProvider.getUriForFile(this,
+                    getPackageName() + ".fileprovider",
+                    photoFile);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraImageUri);
+            cameraLauncher.launch(intent);
+        }
+    }
+
+    private File createTempImageFile() throws Exception {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        return File.createTempFile(imageFileName, ".jpg", storageDir);
     }
 
     private String saveImageToInternalStorage(Uri uri) {
@@ -137,44 +214,11 @@ public class PartnerFoodFormActivity extends AppCompatActivity {
         etDiscountPrice.setText(String.valueOf((int) existingFood.getDiscountPrice()));
         etQuantity.setText(String.valueOf(existingFood.getQuantity()));
         etAddress.setText(existingFood.getPartnerAddress());
-        etPhotoUrl.setText(existingFood.getPhotoUrl());
+        selectedPhotoPath = existingFood.getPhotoUrl();
 
-        if (existingFood.getPhotoUrl() != null && !existingFood.getPhotoUrl().isEmpty()) {
-            Glide.with(this).load(existingFood.getPhotoUrl()).into(imgPreview);
+        if (selectedPhotoPath != null && !selectedPhotoPath.isEmpty()) {
+            Glide.with(this).load(selectedPhotoPath).into(imgPreview);
         }
-    }
-
-    private void setupClickListeners() {
-        tvBack.setOnClickListener(v -> finish());
-        btnSave.setOnClickListener(v -> handleSave());
-
-        btnPickPhoto.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            imagePickerLauncher.launch(intent);
-        });
-
-        // Update preview saat URL berubah
-        etPhotoUrl.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                String url = s.toString().trim();
-                if (!url.isEmpty()) {
-                    Glide.with(PartnerFoodFormActivity.this)
-                            .load(url)
-                            .placeholder(android.R.drawable.ic_menu_gallery)
-                            .error(android.R.drawable.ic_menu_gallery)
-                            .into(imgPreview);
-                } else {
-                    imgPreview.setImageResource(android.R.drawable.ic_menu_gallery);
-                }
-            }
-        });
     }
 
     private void handleSave() {
@@ -184,14 +228,16 @@ public class PartnerFoodFormActivity extends AppCompatActivity {
         String discountPriceStr = etDiscountPrice.getText().toString().trim();
         String quantityStr = etQuantity.getText().toString().trim();
         String address = etAddress.getText().toString().trim();
-        String photoUrl = etPhotoUrl.getText().toString().trim();
 
-        // Validasi field wajib
         if (TextUtils.isEmpty(name)) { etName.setError("Nama tidak boleh kosong"); etName.requestFocus(); return; }
         if (TextUtils.isEmpty(originalPriceStr)) { etOriginalPrice.setError("Harga asli wajib diisi"); etOriginalPrice.requestFocus(); return; }
         if (TextUtils.isEmpty(discountPriceStr)) { etDiscountPrice.setError("Harga diskon wajib diisi"); etDiscountPrice.requestFocus(); return; }
         if (TextUtils.isEmpty(quantityStr)) { etQuantity.setError("Stok wajib diisi"); etQuantity.requestFocus(); return; }
         if (TextUtils.isEmpty(address)) { etAddress.setError("Alamat wajib diisi"); etAddress.requestFocus(); return; }
+        if (TextUtils.isEmpty(selectedPhotoPath)) {
+            Toast.makeText(this, "Silakan pilih foto makanan terlebih dahulu", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         double originalPrice = Double.parseDouble(originalPriceStr);
         double discountPrice = Double.parseDouble(discountPriceStr);
@@ -216,15 +262,13 @@ public class PartnerFoodFormActivity extends AppCompatActivity {
         food.setDiscountPrice(discountPrice);
         food.setQuantity(quantity);
         food.setPartnerAddress(address);
-        food.setPhotoUrl(photoUrl.isEmpty() ? null : photoUrl);
+        food.setPhotoUrl(selectedPhotoPath);
         food.setPartnerId(sessionManager.getUid());
 
         boolean success;
-
         if (isEdit && existingFood != null) {
             food.setFoodId(existingFood.getFoodId());
             food.setStatus(existingFood.getStatus());
-            // Kalau stok di-update jadi > 0, ubah status kembali ke available
             if (quantity > 0) food.setStatus(Constants.FOOD_AVAILABLE);
             success = dbHelper.updateFood(food);
             if (success) Toast.makeText(this, "Makanan berhasil diperbarui", Toast.LENGTH_SHORT).show();
