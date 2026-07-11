@@ -4,10 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -53,10 +56,12 @@ public class PartnerFoodAdapter extends RecyclerView.Adapter<PartnerFoodAdapter.
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
+        ImageView imgFood;
         TextView tvFoodName, tvPrice, tvStock, tvFoodStatus, btnEdit, btnDelete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            imgFood = itemView.findViewById(R.id.imgFood);
             tvFoodName = itemView.findViewById(R.id.tvFoodName);
             tvPrice = itemView.findViewById(R.id.tvPrice);
             tvStock = itemView.findViewById(R.id.tvStock);
@@ -69,6 +74,18 @@ public class PartnerFoodAdapter extends RecyclerView.Adapter<PartnerFoodAdapter.
             tvFoodName.setText(food.getName());
             tvPrice.setText("Rp" + (int) food.getDiscountPrice());
             tvStock.setText("Sisa " + food.getQuantity() + " porsi");
+
+            // Load foto
+            if (food.getPhotoUrl() != null && !food.getPhotoUrl().isEmpty()) {
+                Glide.with(context)
+                        .load(food.getPhotoUrl())
+                        .placeholder(android.R.drawable.ic_menu_gallery)
+                        .error(android.R.drawable.ic_menu_gallery)
+                        .centerCrop()
+                        .into(imgFood);
+            } else {
+                imgFood.setImageResource(android.R.drawable.ic_menu_gallery);
+            }
 
             if (Constants.FOOD_AVAILABLE.equals(food.getStatus())) {
                 tvFoodStatus.setText("Tersedia");

@@ -1,21 +1,37 @@
 package edu.uph.m24si1.foodsaverkelompok4;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.UUID;
 
 public class PartnerFoodFormActivity extends AppCompatActivity {
 
     private TextView tvBack, tvTitle;
     private EditText etName, etDescription, etOriginalPrice, etDiscountPrice;
     private EditText etQuantity, etAddress, etPhotoUrl;
-    private Button btnSave;
+    private ImageView imgPreview;
+    private Button btnSave, btnPickPhoto;
 
     private DatabaseHelper dbHelper;
     private SessionManager sessionManager;
@@ -23,6 +39,8 @@ public class PartnerFoodFormActivity extends AppCompatActivity {
     private boolean isEdit = false;
     private String foodId = null;
     private Food existingFood = null;
+
+    private ActivityResultLauncher<Intent> imagePickerLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +54,7 @@ public class PartnerFoodFormActivity extends AppCompatActivity {
         foodId = getIntent().getStringExtra("foodId");
 
         initViews();
+        setupImagePicker();
         setupClickListeners();
 
         if (isEdit && foodId != null) {
@@ -56,7 +75,52 @@ public class PartnerFoodFormActivity extends AppCompatActivity {
         etQuantity = findViewById(R.id.etQuantity);
         etAddress = findViewById(R.id.etAddress);
         etPhotoUrl = findViewById(R.id.etPhotoUrl);
+        imgPreview = findViewById(R.id.imgPreview);
+        btnPickPhoto = findViewById(R.id.btnPickPhoto);
         btnSave = findViewById(R.id.btnSave);
+    }
+
+    private void setupImagePicker() {
+        imagePickerLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        Uri selectedImageUri = result.getData().getData();
+                        if (selectedImageUri != null) {
+                            String savedPath = saveImageToInternalStorage(selectedImageUri);
+                            if (savedPath != null) {
+                                etPhotoUrl.setText(savedPath);
+                                Glide.with(this).load(savedPath).into(imgPreview);
+                            }
+                        }
+                    }
+                }
+        );
+    }
+
+    private String saveImageToInternalStorage(Uri uri) {
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+            String fileName = "food_" + UUID.randomUUID().toString() + ".jpg";
+            File file = new File(getFilesDir(), fileName);
+            OutputStream outputStream = new FileOutputStream(file);
+
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, length);
+            }
+
+            outputStream.flush();
+            outputStream.close();
+            inputStream.close();
+
+            return file.getAbsolutePath();
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Gagal memproses gambar", Toast.LENGTH_SHORT).show();
+            return null;
+        }
     }
 
     private void loadExistingFood() {
@@ -74,11 +138,43 @@ public class PartnerFoodFormActivity extends AppCompatActivity {
         etQuantity.setText(String.valueOf(existingFood.getQuantity()));
         etAddress.setText(existingFood.getPartnerAddress());
         etPhotoUrl.setText(existingFood.getPhotoUrl());
+
+        if (existingFood.getPhotoUrl() != null && !existingFood.getPhotoUrl().isEmpty()) {
+            Glide.with(this).load(existingFood.getPhotoUrl()).into(imgPreview);
+        }
     }
 
     private void setupClickListeners() {
         tvBack.setOnClickListener(v -> finish());
         btnSave.setOnClickListener(v -> handleSave());
+
+        btnPickPhoto.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            imagePickerLauncher.launch(intent);
+        });
+
+        // Update preview saat URL berubah
+        etPhotoUrl.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String url = s.toString().trim();
+                if (!url.isEmpty()) {
+                    Glide.with(PartnerFoodFormActivity.this)
+                            .load(url)
+                            .placeholder(android.R.drawable.ic_menu_gallery)
+                            .error(android.R.drawable.ic_menu_gallery)
+                            .into(imgPreview);
+                } else {
+                    imgPreview.setImageResource(android.R.drawable.ic_menu_gallery);
+                }
+            }
+        });
     }
 
     private void handleSave() {
