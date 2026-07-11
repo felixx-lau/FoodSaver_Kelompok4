@@ -234,10 +234,6 @@ public class PartnerFoodFormActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(discountPriceStr)) { etDiscountPrice.setError("Harga diskon wajib diisi"); etDiscountPrice.requestFocus(); return; }
         if (TextUtils.isEmpty(quantityStr)) { etQuantity.setError("Stok wajib diisi"); etQuantity.requestFocus(); return; }
         if (TextUtils.isEmpty(address)) { etAddress.setError("Alamat wajib diisi"); etAddress.requestFocus(); return; }
-        if (TextUtils.isEmpty(selectedPhotoPath)) {
-            Toast.makeText(this, "Silakan pilih foto makanan terlebih dahulu", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
         double originalPrice = Double.parseDouble(originalPriceStr);
         double discountPrice = Double.parseDouble(discountPriceStr);

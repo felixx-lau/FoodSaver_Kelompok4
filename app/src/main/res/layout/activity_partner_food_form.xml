@@ -83,7 +83,7 @@
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Alamat Toko *" android:textSize="13sp" android:textStyle="bold" android:textColor="#333333" android:layout_marginBottom="6dp"/>
                 <EditText android:id="@+id/etAddress" android:layout_width="match_parent" android:layout_height="48dp" android:hint="Jl. Contoh No. 10, Kota" android:inputType="textPostalAddress" android:paddingStart="12dp" android:paddingEnd="12dp" android:layout_marginBottom="14dp"/>
 
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Foto Makanan *" android:textSize="13sp" android:textStyle="bold" android:textColor="#333333" android:layout_marginBottom="6dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Foto Makanan (Opsional)" android:textSize="13sp" android:textStyle="bold" android:textColor="#333333" android:layout_marginBottom="6dp"/>
 
                 <FrameLayout
                     android:layout_width="match_parent"
