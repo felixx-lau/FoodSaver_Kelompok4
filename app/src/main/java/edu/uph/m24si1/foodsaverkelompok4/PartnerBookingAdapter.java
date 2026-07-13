@@ -77,7 +77,7 @@ public class PartnerBookingAdapter extends RecyclerView.Adapter<PartnerBookingAd
                     ? "Pickup" : "Delivery";
             tvMethodTime.setText(methodIcon + " - " + booking.getScheduledTimeSlot());
 
-            // Status badge dan tombol aksi berdasarkan status saat ini
+
             switch (booking.getStatus()) {
                 case Constants.BOOKING_PENDING:
                     tvStatus.setText("Menunggu");

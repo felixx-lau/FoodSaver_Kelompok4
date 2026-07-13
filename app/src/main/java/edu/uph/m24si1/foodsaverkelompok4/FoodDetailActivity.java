@@ -27,10 +27,10 @@ public class FoodDetailActivity extends AppCompatActivity {
     private Button btnBooking;
     private TextView tvBack;
 
-    private String selectedMethod = "pickup"; // default pickup
+    private String selectedMethod = "pickup";
     private String selectedSlot = "";
 
-    // Data makanan dari Intent
+
     private String foodId, foodName, partnerAddress, photoUrl, description, partnerId;
     private double originalPrice, discountPrice;
     private int quantity;

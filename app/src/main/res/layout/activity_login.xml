@@ -13,7 +13,7 @@
         android:padding="24dp"
         android:gravity="center_horizontal">
 
-        <!-- Logo -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
             android:textColor="#888888"
             android:layout_marginBottom="40dp"/>
 
-        <!-- Label Email -->
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
             android:paddingEnd="12dp"
             android:layout_marginBottom="16dp"/>
 
-        <!-- Label Password -->
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,7 +78,7 @@
             android:paddingEnd="12dp"
             android:layout_marginBottom="24dp"/>
 
-        <!-- Tombol Login -->
+
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
@@ -113,7 +113,7 @@
                 android:textStyle="bold"/>
         </LinearLayout>
 
-        <!-- Garis pemisah -->
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -121,7 +121,7 @@
             android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp"/>
 
-        <!-- Link ke Partner Login & Register -->
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -39,7 +39,7 @@ public class HomeActivity extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
         sessionManager = new SessionManager(this);
 
-        // Proteksi: kalau belum login, paksa ke Login
+
         if (!sessionManager.isLoggedIn()) {
             startActivity(new Intent(this, LoginActivity.class));
             finish();

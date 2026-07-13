@@ -28,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
         sessionManager = new SessionManager(this);
 
-        // Ambil role dari Intent (default ke ROLE_USER)
+
         role = getIntent().getStringExtra("role");
         if (role == null) {
             role = Constants.ROLE_USER;

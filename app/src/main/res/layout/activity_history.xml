@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="#F5F5F5">
 
-    <!-- Header -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -25,7 +25,7 @@
             android:textColor="#1A1A1A"/>
     </LinearLayout>
 
-    <!-- Tab filter -->
+
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-    <!-- Konten -->
+
     <TextView
         android:id="@+id/tvEmpty"
         android:layout_width="match_parent"
@@ -117,7 +117,7 @@
         android:paddingTop="12dp"
         android:clipToPadding="false"/>
 
-    <!-- Bottom Navigation -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"

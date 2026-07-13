@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="#F5F5F5">
 
-    <!-- TOP BAR -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
             android:textColor="#555555"/>
     </LinearLayout>
 
-    <!-- SEARCH BAR -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
             android:singleLine="true"/>
     </LinearLayout>
 
-    <!-- KONTEN UTAMA -->
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -82,7 +82,7 @@
             android:orientation="vertical"
             android:paddingBottom="16dp">
 
-            <!-- BANNER -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- KATEGORI -->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -182,7 +182,7 @@
                 </LinearLayout>
             </HorizontalScrollView>
 
-            <!-- LABEL DAFTAR MAKANAN -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -209,7 +209,7 @@
                     android:textColor="#4CAF50"/>
             </LinearLayout>
 
-            <!-- LOADING -->
+
             <ProgressBar
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
@@ -219,7 +219,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"/>
 
-            <!-- EMPTY STATE -->
+
             <TextView
                 android:id="@+id/tvEmpty"
                 android:layout_width="match_parent"
@@ -245,7 +245,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- BOTTOM NAVIGATION -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"

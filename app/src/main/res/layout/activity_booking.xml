@@ -12,7 +12,7 @@
         android:orientation="vertical"
         android:paddingBottom="24dp">
 
-        <!-- Header -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="56dp"
@@ -40,7 +40,7 @@
                 android:textColor="#1A1A1A"/>
         </LinearLayout>
 
-        <!-- Info makanan -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
                     android:textColor="#1A1A1A"/>
             </LinearLayout>
 
-            <!-- Alamat delivery (tampil hanya kalau delivery) -->
+
             <LinearLayout
                 android:id="@+id/rowDeliveryAddress"
                 android:layout_width="match_parent"
@@ -225,7 +225,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Ringkasan harga -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -297,7 +297,7 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Info pembayaran -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -323,7 +323,7 @@
                 android:textColor="#795548"/>
         </LinearLayout>
 
-        <!-- Tombol konfirmasi -->
+
         <Button
             android:id="@+id/btnConfirm"
             android:layout_width="match_parent"

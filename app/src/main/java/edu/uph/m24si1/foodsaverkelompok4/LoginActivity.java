@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
         sessionManager = new SessionManager(this);
 
-        // Kalau sudah login, langsung ke Home (skip halaman login)
+
         if (sessionManager.isLoggedIn()) {
             redirectBasedOnRole();
             return;

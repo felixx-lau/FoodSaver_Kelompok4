@@ -27,7 +27,7 @@ public class ProfileActivity extends AppCompatActivity {
         sessionManager = new SessionManager(this);
         dbHelper = new DatabaseHelper(this);
 
-        // Proteksi: kalau belum login, paksa ke Login
+
         if (!sessionManager.isLoggedIn()) {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
@@ -58,7 +58,7 @@ public class ProfileActivity extends AppCompatActivity {
         String email = sessionManager.getEmail();
         String uid = sessionManager.getUid();
 
-        // Tampilkan inisial nama sebagai avatar
+
         if (name != null && !name.isEmpty()) {
             tvAvatar.setText(String.valueOf(name.charAt(0)).toUpperCase());
         }
@@ -66,7 +66,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvName.setText(name);
         tvEmail.setText(email);
 
-        // Hitung statistik booking dari database
+
         int totalBooking = dbHelper.getBookingsByUserId(uid).size();
         int totalSelamat = dbHelper.countCompletedBookings(uid);
 

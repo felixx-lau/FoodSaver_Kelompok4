@@ -4,11 +4,11 @@ public class User {
     private String uid;
     private String name;
     private String email;
-    private String password; // ditambah karena pakai SQLite, bukan Firebase Auth
-    private String role;     // "user" atau "partner"
+    private String password;
+    private String role;
     private long createdAt;
 
-    // Constructor kosong — wajib ada untuk konversi dari SQLite cursor
+
     public User() {}
 
     public User(String uid, String name, String email, String password, String role, long createdAt) {

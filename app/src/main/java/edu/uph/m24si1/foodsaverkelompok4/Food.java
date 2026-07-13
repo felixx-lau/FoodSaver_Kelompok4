@@ -13,7 +13,7 @@ public class Food {
     private String partnerAddress;
     private long createdAt;
 
-    // Constructor kosong wajib ada
+
     public Food() {}
 
     public Food(String foodId, String partnerId, String name, String description,

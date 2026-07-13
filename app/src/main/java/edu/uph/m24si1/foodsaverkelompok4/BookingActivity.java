@@ -123,7 +123,7 @@ public class BookingActivity extends AppCompatActivity {
     }
 
     private void handleConfirmBooking() {
-        // Disable tombol supaya tidak double booking
+
         btnConfirm.setEnabled(false);
         btnConfirm.setText("Memproses...");
 

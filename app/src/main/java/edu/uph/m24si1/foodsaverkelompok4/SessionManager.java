@@ -20,7 +20,7 @@ public class SessionManager {
         editor = pref.edit();
     }
 
-    // Simpan data user yang berhasil login
+
     public void saveSession(User user) {
         editor.putBoolean(KEY_IS_LOGGED_IN, true);
         editor.putString(KEY_UID, user.getUid());
@@ -30,7 +30,7 @@ public class SessionManager {
         editor.apply();
     }
 
-    // Hapus semua data sesi saat logout
+
     public void logout() {
         editor.clear();
         editor.apply();
