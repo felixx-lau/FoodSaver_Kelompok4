@@ -4,7 +4,12 @@ Felix Tommy Lauvender - 03081240031
 Jadrian Oliver Taher - 03081240029 
 Jevanie Shenjaya - 03081240041
 --------------------------------------------------------------------
+Link Youtube
+https://youtube.com/shorts/t_EnIw6UbCo?si=7FqOW-6HmrUE_JLr
+--------------------------------------------------------------------
+
 Food Saver
+
 Food Saver adalah aplikasi Android yang membantu restoran, bakery, kafe, dan supermarket menjual makanan yang masih layak konsumsi dengan harga diskon sebelum makanan tersebut terbuang sia-sia. Aplikasi ini menghubungkan pelaku usaha makanan dengan masyarakat yang ingin mendapatkan makanan berkualitas dengan harga lebih murah, sekaligus membantu mengurangi food waste di lingkungan sekitar.
 Proyek ini dikembangkan sebagai tugas mata kuliah Pemrograman Berorientasi Objek (PBO), menggunakan Java di Android Studio dengan Firebase sebagai backend.
 
