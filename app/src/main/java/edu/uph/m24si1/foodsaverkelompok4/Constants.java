@@ -10,10 +10,11 @@ public class Constants {
     public static final String FOOD_OUT_OF_STOCK = "out_of_stock";
 
     // Booking Status
-    public static final String BOOKING_PENDING = "pending";
-    public static final String BOOKING_READY = "ready";
-    public static final String BOOKING_COMPLETED = "completed";
-    public static final String BOOKING_CANCELLED = "cancelled";
+    public static final String BOOKING_PENDING = "pending";      // Menunggu Konfirmasi Penjual
+    public static final String BOOKING_CONFIRMED = "confirmed";  // Pesanan Dikonfirmasi & Sedang Disiapkan
+    public static final String BOOKING_READY = "ready";          // Pesanan Siap Diambil / Diantar
+    public static final String BOOKING_COMPLETED = "completed";  // Pesanan Selesai / Sudah Diterima
+    public static final String BOOKING_CANCELLED = "cancelled";  // Pesanan Dibatalkan
 
     // Delivery Method
     public static final String METHOD_PICKUP = "pickup";

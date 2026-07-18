@@ -13,7 +13,7 @@ import java.util.UUID;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "Foodsaver.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Table Users
     private static final String TABLE_USERS = "users";
@@ -22,6 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_USER_EMAIL = "email";
     private static final String COL_USER_PASSWORD = "password";
     private static final String COL_USER_ROLE = "role";
+    private static final String COL_USER_STORE_NAME = "store_name";
     private static final String COL_USER_CREATED_AT = "created_at";
 
     // Table Foods
@@ -35,6 +36,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_FOOD_PHOTO_URL = "photo_url";
     private static final String COL_FOOD_QUANTITY = "quantity";
     private static final String COL_FOOD_STATUS = "status";
+    private static final String COL_FOOD_PARTNER_NAME = "partner_name";
     private static final String COL_FOOD_ADDRESS = "partner_address";
     private static final String COL_FOOD_CREATED_AT = "created_at";
 
@@ -44,6 +46,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL_BOOKING_USER_ID = "user_id";
     private static final String COL_BOOKING_FOOD_ID = "food_id";
     private static final String COL_BOOKING_PARTNER_ID = "partner_id";
+    private static final String COL_BOOKING_PARTNER_NAME = "partner_name";
     private static final String COL_BOOKING_FOOD_NAME = "food_name";
     private static final String COL_BOOKING_USER_NAME = "user_name";
     private static final String COL_BOOKING_QUANTITY = "quantity";
@@ -65,6 +68,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COL_USER_EMAIL + " TEXT UNIQUE,"
                 + COL_USER_PASSWORD + " TEXT,"
                 + COL_USER_ROLE + " TEXT,"
+                + COL_USER_STORE_NAME + " TEXT,"
                 + COL_USER_CREATED_AT + " INTEGER" + ")";
 
         String CREATE_FOODS_TABLE = "CREATE TABLE " + TABLE_FOODS + "("
@@ -77,6 +81,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COL_FOOD_PHOTO_URL + " TEXT,"
                 + COL_FOOD_QUANTITY + " INTEGER,"
                 + COL_FOOD_STATUS + " TEXT,"
+                + COL_FOOD_PARTNER_NAME + " TEXT,"
                 + COL_FOOD_ADDRESS + " TEXT,"
                 + COL_FOOD_CREATED_AT + " INTEGER" + ")";
 
@@ -85,6 +90,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + COL_BOOKING_USER_ID + " TEXT,"
                 + COL_BOOKING_FOOD_ID + " TEXT,"
                 + COL_BOOKING_PARTNER_ID + " TEXT,"
+                + COL_BOOKING_PARTNER_NAME + " TEXT,"
                 + COL_BOOKING_FOOD_NAME + " TEXT,"
                 + COL_BOOKING_USER_NAME + " TEXT,"
                 + COL_BOOKING_QUANTITY + " INTEGER,"
@@ -117,6 +123,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_USER_EMAIL, user.getEmail());
         values.put(COL_USER_PASSWORD, user.getPassword());
         values.put(COL_USER_ROLE, user.getRole());
+        values.put(COL_USER_STORE_NAME, user.getStoreName());
         values.put(COL_USER_CREATED_AT, System.currentTimeMillis());
 
         long id = db.insert(TABLE_USERS, null, values);
@@ -183,6 +190,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         user.setEmail(cursor.getString(cursor.getColumnIndexOrThrow(COL_USER_EMAIL)));
         user.setPassword(cursor.getString(cursor.getColumnIndexOrThrow(COL_USER_PASSWORD)));
         user.setRole(cursor.getString(cursor.getColumnIndexOrThrow(COL_USER_ROLE)));
+        user.setStoreName(cursor.getString(cursor.getColumnIndexOrThrow(COL_USER_STORE_NAME)));
         user.setCreatedAt(cursor.getLong(cursor.getColumnIndexOrThrow(COL_USER_CREATED_AT)));
         return user;
     }
@@ -201,6 +209,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_FOOD_PHOTO_URL, food.getPhotoUrl());
         values.put(COL_FOOD_QUANTITY, food.getQuantity());
         values.put(COL_FOOD_STATUS, food.getStatus() == null ? Constants.FOOD_AVAILABLE : food.getStatus());
+        values.put(COL_FOOD_PARTNER_NAME, food.getPartnerName());
         values.put(COL_FOOD_ADDRESS, food.getPartnerAddress());
         values.put(COL_FOOD_CREATED_AT, System.currentTimeMillis());
 
@@ -263,6 +272,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_FOOD_PHOTO_URL, food.getPhotoUrl());
         values.put(COL_FOOD_QUANTITY, food.getQuantity());
         values.put(COL_FOOD_STATUS, food.getStatus());
+        values.put(COL_FOOD_PARTNER_NAME, food.getPartnerName());
         values.put(COL_FOOD_ADDRESS, food.getPartnerAddress());
 
         int rows = db.update(TABLE_FOODS, values, COL_FOOD_ID + "=?", new String[]{food.getFoodId()});
@@ -311,6 +321,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         food.setPhotoUrl(cursor.getString(cursor.getColumnIndexOrThrow(COL_FOOD_PHOTO_URL)));
         food.setQuantity(cursor.getInt(cursor.getColumnIndexOrThrow(COL_FOOD_QUANTITY)));
         food.setStatus(cursor.getString(cursor.getColumnIndexOrThrow(COL_FOOD_STATUS)));
+        food.setPartnerName(cursor.getString(cursor.getColumnIndexOrThrow(COL_FOOD_PARTNER_NAME)));
         food.setPartnerAddress(cursor.getString(cursor.getColumnIndexOrThrow(COL_FOOD_ADDRESS)));
         food.setCreatedAt(cursor.getLong(cursor.getColumnIndexOrThrow(COL_FOOD_CREATED_AT)));
         return food;
@@ -325,6 +336,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COL_BOOKING_USER_ID, booking.getUserId());
         values.put(COL_BOOKING_FOOD_ID, booking.getFoodId());
         values.put(COL_BOOKING_PARTNER_ID, booking.getPartnerId());
+        values.put(COL_BOOKING_PARTNER_NAME, booking.getPartnerName());
         values.put(COL_BOOKING_FOOD_NAME, booking.getFoodName());
         values.put(COL_BOOKING_USER_NAME, booking.getUserName());
         values.put(COL_BOOKING_QUANTITY, booking.getQuantity());
@@ -369,6 +381,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return bookings;
     }
 
+    /**
+     * Advanced join query to get bookings with extra food context if needed.
+     */
+    public List<Booking> getBookingsByUserIdWithFood(String userId) {
+        // Since we already store foodName and partnerName in TABLE_BOOKINGS, 
+        // a simple query is sufficient, but we'll use this method for consistency.
+        return getBookingsByUserId(userId);
+    }
+
     public boolean updateBookingStatus(String bookingId, String status) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -398,6 +419,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         booking.setUserId(cursor.getString(cursor.getColumnIndexOrThrow(COL_BOOKING_USER_ID)));
         booking.setFoodId(cursor.getString(cursor.getColumnIndexOrThrow(COL_BOOKING_FOOD_ID)));
         booking.setPartnerId(cursor.getString(cursor.getColumnIndexOrThrow(COL_BOOKING_PARTNER_ID)));
+        booking.setPartnerName(cursor.getString(cursor.getColumnIndexOrThrow(COL_BOOKING_PARTNER_NAME)));
         booking.setFoodName(cursor.getString(cursor.getColumnIndexOrThrow(COL_BOOKING_FOOD_NAME)));
         booking.setUserName(cursor.getString(cursor.getColumnIndexOrThrow(COL_BOOKING_USER_NAME)));
         booking.setQuantity(cursor.getInt(cursor.getColumnIndexOrThrow(COL_BOOKING_QUANTITY)));

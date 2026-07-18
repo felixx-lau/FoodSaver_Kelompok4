@@ -60,6 +60,9 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
 
         public void bind(Booking booking) {
             tvFoodName.setText(booking.getFoodName());
+            if (booking.getPartnerName() != null) {
+                tvFoodName.setText(booking.getFoodName() + " (" + booking.getPartnerName() + ")");
+            }
             tvQuantityInfo.setText(booking.getQuantity() + " porsi");
 
             // Method dan waktu
@@ -74,13 +77,19 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
         private void setStatusBadge(String status) {
             switch (status) {
                 case Constants.BOOKING_PENDING:
-                    tvStatus.setText("Menunggu");
+                    tvStatus.setText("Menunggu Konfirmasi");
                     tvStatus.setTextColor(Color.parseColor("#E65100"));
                     tvStatus.setBackgroundColor(Color.parseColor("#FFF3E0"));
                     break;
 
+                case Constants.BOOKING_CONFIRMED:
+                    tvStatus.setText("Pesanan Sedang Disiapkan");
+                    tvStatus.setTextColor(Color.parseColor("#7B1FA2"));
+                    tvStatus.setBackgroundColor(Color.parseColor("#F3E5F5"));
+                    break;
+
                 case Constants.BOOKING_READY:
-                    tvStatus.setText("Siap diambil");
+                    tvStatus.setText("Siap Diambil / Diantar");
                     tvStatus.setTextColor(Color.parseColor("#1565C0"));
                     tvStatus.setBackgroundColor(Color.parseColor("#E3F2FD"));
                     break;

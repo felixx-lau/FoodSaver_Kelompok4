@@ -71,7 +71,8 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
 
         public void bind(Food food) {
             tvFoodName.setText(food.getName());
-            tvPartnerName.setText(food.getPartnerAddress());
+            String partnerDisplay = food.getPartnerName() != null ? food.getPartnerName() : food.getPartnerAddress();
+            tvPartnerName.setText(partnerDisplay);
             tvDiscountPrice.setText("Rp" + (int) food.getDiscountPrice());
             tvOriginalPrice.setText("Rp" + (int) food.getOriginalPrice());
             tvOriginalPrice.setPaintFlags(tvOriginalPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);

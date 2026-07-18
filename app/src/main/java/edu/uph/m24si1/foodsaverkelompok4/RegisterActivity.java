@@ -12,9 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText etName, etEmail, etPassword, etConfirmPassword;
+    private EditText etName, etEmail, etPassword, etConfirmPassword, etStoreName;
     private Button btnRegister;
-    private TextView tvBack, tvGoToLogin, tvSwitchToPartner;
+    private TextView tvBack, tvGoToLogin, tvSwitchToPartner, tvStoreNameLabel;
 
     private DatabaseHelper dbHelper;
     private SessionManager sessionManager;
@@ -44,6 +44,8 @@ public class RegisterActivity extends AppCompatActivity {
             TextView tvTitle = findViewById(R.id.tvTitle);
             if (tvTitle != null) tvTitle.setText("Daftar Akun Partner");
             tvSwitchToPartner.setVisibility(android.view.View.GONE);
+            if (tvStoreNameLabel != null) tvStoreNameLabel.setVisibility(android.view.View.VISIBLE);
+            if (etStoreName != null) etStoreName.setVisibility(android.view.View.VISIBLE);
         }
     }
 
@@ -52,6 +54,8 @@ public class RegisterActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
+        etStoreName = findViewById(R.id.etStoreName);
+        tvStoreNameLabel = findViewById(R.id.tvStoreNameLabel);
         btnRegister = findViewById(R.id.btnRegister);
         tvBack = findViewById(R.id.tvBack);
         tvGoToLogin = findViewById(R.id.tvGoToLogin);
@@ -76,6 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void handleRegister() {
         String name = etName.getText().toString().trim();
+        String storeName = etStoreName.getText().toString().trim();
         String email = etEmail.getText().toString().trim();
         String password = etPassword.getText().toString().trim();
         String confirmPassword = etConfirmPassword.getText().toString().trim();
@@ -84,6 +89,12 @@ public class RegisterActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(name)) {
             etName.setError("Nama tidak boleh kosong");
             etName.requestFocus();
+            return;
+        }
+
+        if (Constants.ROLE_PARTNER.equals(role) && TextUtils.isEmpty(storeName)) {
+            etStoreName.setError("Nama Toko tidak boleh kosong");
+            etStoreName.requestFocus();
             return;
         }
 
@@ -123,6 +134,7 @@ public class RegisterActivity extends AppCompatActivity {
         newUser.setEmail(email);
         newUser.setPassword(password);
         newUser.setRole(role);
+        newUser.setStoreName(Constants.ROLE_PARTNER.equals(role) ? storeName : null);
 
         // Simpan ke database
         boolean success = dbHelper.registerUser(newUser);

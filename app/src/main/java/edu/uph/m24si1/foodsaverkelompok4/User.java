@@ -6,17 +6,19 @@ public class User {
     private String email;
     private String password;
     private String role;
+    private String storeName;
     private long createdAt;
 
 
     public User() {}
 
-    public User(String uid, String name, String email, String password, String role, long createdAt) {
+    public User(String uid, String name, String email, String password, String role, String storeName, long createdAt) {
         this.uid = uid;
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.storeName = storeName;
         this.createdAt = createdAt;
     }
 
@@ -34,6 +36,9 @@ public class User {
 
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
+
+    public String getStoreName() { return storeName; }
+    public void setStoreName(String storeName) { this.storeName = storeName; }
 
     public long getCreatedAt() { return createdAt; }
     public void setCreatedAt(long createdAt) { this.createdAt = createdAt; }

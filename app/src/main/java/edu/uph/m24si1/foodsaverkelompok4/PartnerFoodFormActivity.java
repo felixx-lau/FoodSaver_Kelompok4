@@ -261,6 +261,12 @@ public class PartnerFoodFormActivity extends AppCompatActivity {
         food.setPhotoUrl(selectedPhotoPath);
         food.setPartnerId(sessionManager.getUid());
 
+        // Set Nama Toko
+        User partner = dbHelper.getUserById(sessionManager.getUid());
+        if (partner != null) {
+            food.setPartnerName(partner.getStoreName());
+        }
+
         boolean success;
         if (isEdit && existingFood != null) {
             food.setFoodId(existingFood.getFoodId());

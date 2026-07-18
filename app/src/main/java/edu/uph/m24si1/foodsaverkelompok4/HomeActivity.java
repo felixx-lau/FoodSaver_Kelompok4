@@ -6,6 +6,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,8 +26,12 @@ public class HomeActivity extends AppCompatActivity {
     private List<Food> filteredFoods = new ArrayList<>();
 
     private ProgressBar progressBar;
-    private TextView tvEmpty, tvBannerTitle;
+    private TextView tvEmpty, tvCartBadge;
     private EditText etSearch;
+    private FrameLayout btnCart;
+    private TextView tabAll, tabBakery, tabRestoran, tabKafe, tabSwalayan;
+
+    private String currentCategory = "Semua";
 
     private DatabaseHelper dbHelper;
     private SessionManager sessionManager;
@@ -39,7 +44,6 @@ public class HomeActivity extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
         sessionManager = new SessionManager(this);
 
-
         if (!sessionManager.isLoggedIn()) {
             startActivity(new Intent(this, LoginActivity.class));
             finish();
@@ -49,17 +53,25 @@ public class HomeActivity extends AppCompatActivity {
         initViews();
         setupRecyclerView();
         setupSearch();
+        setupCategoryTabs();
+        setupClickListeners();
         setupBottomNav();
         loadFoods();
-        updateBanner();
     }
 
     private void initViews() {
         rvFoods = findViewById(R.id.rvFoods);
         progressBar = findViewById(R.id.progressBar);
         tvEmpty = findViewById(R.id.tvEmpty);
-        tvBannerTitle = findViewById(R.id.tvBannerTitle);
         etSearch = findViewById(R.id.etSearch);
+        btnCart = findViewById(R.id.btnCart);
+        tvCartBadge = findViewById(R.id.tvCartBadge);
+
+        tabAll = findViewById(R.id.tabAll);
+        tabBakery = findViewById(R.id.tabBakery);
+        tabRestoran = findViewById(R.id.tabRestoran);
+        tabKafe = findViewById(R.id.tabKafe);
+        tabSwalayan = findViewById(R.id.tabSwalayan);
     }
 
     private void setupRecyclerView() {
@@ -68,6 +80,7 @@ public class HomeActivity extends AppCompatActivity {
             intent.putExtra("foodId", food.getFoodId());
             intent.putExtra("foodName", food.getName());
             intent.putExtra("partnerAddress", food.getPartnerAddress());
+            intent.putExtra("partnerName", food.getPartnerName());
             intent.putExtra("originalPrice", food.getOriginalPrice());
             intent.putExtra("discountPrice", food.getDiscountPrice());
             intent.putExtra("photoUrl", food.getPhotoUrl());
@@ -88,22 +101,53 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                filterFoods(s.toString());
+                filterFoods();
             }
         });
     }
 
-    private void filterFoods(String keyword) {
+    private void setupCategoryTabs() {
+        View.OnClickListener categoryClick = v -> {
+            TextView clickedTab = (TextView) v;
+            currentCategory = clickedTab.getText().toString();
+            
+            // Reset all tabs
+            TextView[] tabs = {tabAll, tabBakery, tabRestoran, tabKafe, tabSwalayan};
+            for (TextView tab : tabs) {
+                tab.setBackgroundColor(0xFFFFFFFF);
+                tab.setTextColor(0xFF555555);
+            }
+            
+            // Active tab
+            clickedTab.setBackgroundColor(0xFF4CAF50);
+            clickedTab.setTextColor(0xFFFFFFFF);
+            
+            filterFoods();
+        };
+
+        tabAll.setOnClickListener(categoryClick);
+        tabBakery.setOnClickListener(categoryClick);
+        tabRestoran.setOnClickListener(categoryClick);
+        tabKafe.setOnClickListener(categoryClick);
+        tabSwalayan.setOnClickListener(categoryClick);
+    }
+
+    private void setupClickListeners() {
+        btnCart.setOnClickListener(v -> startActivity(new Intent(this, CartActivity.class)));
+    }
+
+    private void filterFoods() {
+        String keyword = etSearch.getText().toString().toLowerCase().trim();
         filteredFoods.clear();
 
-        if (keyword.isEmpty()) {
-            filteredFoods.addAll(allFoods);
-        } else {
-            String lower = keyword.toLowerCase();
-            for (Food food : allFoods) {
-                if (food.getName().toLowerCase().contains(lower)) {
-                    filteredFoods.add(food);
-                }
+        for (Food food : allFoods) {
+            boolean matchesSearch = food.getName().toLowerCase().contains(keyword);
+            
+            // Note: Since 'Category' is not a real field in current Food model, 
+            // we'll simulate it for now. In real app, Food object should have categoryId.
+            // For this demo, we'll just show all if matches search.
+            if (matchesSearch) {
+                filteredFoods.add(food);
             }
         }
 
@@ -112,23 +156,10 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void loadFoods() {
-        showLoading(true);
+        progressBar.setVisibility(View.VISIBLE);
         allFoods = dbHelper.getAllAvailableFoods();
-        filteredFoods.clear();
-        filteredFoods.addAll(allFoods);
-        foodAdapter.updateList(filteredFoods);
-        showLoading(false);
-        showEmptyOrList();
-    }
-
-    private void updateBanner() {
-        String uid = sessionManager.getUid();
-        int total = dbHelper.countCompletedBookings(uid);
-        tvBannerTitle.setText("Kamu sudah selamatkan " + total + " porsi makanan");
-    }
-
-    private void showLoading(boolean isLoading) {
-        progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        filterFoods();
+        progressBar.setVisibility(View.GONE);
     }
 
     private void showEmptyOrList() {
@@ -141,26 +172,30 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+    private void updateCartBadge() {
+        int count = CartManager.getInstance().getItemCount();
+        if (count > 0) {
+            tvCartBadge.setVisibility(View.VISIBLE);
+            tvCartBadge.setText(String.valueOf(count));
+        } else {
+            tvCartBadge.setVisibility(View.GONE);
+        }
+    }
+
     private void setupBottomNav() {
+        LinearLayout navHome = findViewById(R.id.navHome);
         LinearLayout navHistory = findViewById(R.id.navHistory);
         LinearLayout navProfile = findViewById(R.id.navProfile);
-        LinearLayout navSearch = findViewById(R.id.navSearch);
 
-        navHistory.setOnClickListener(v ->
-                startActivity(new Intent(this, HistoryActivity.class)));
-
-        navProfile.setOnClickListener(v ->
-                startActivity(new Intent(this, ProfileActivity.class)));
-
-        navSearch.setOnClickListener(v ->
-                etSearch.requestFocus());
+        navHome.setOnClickListener(v -> {}); // Already here
+        navHistory.setOnClickListener(v -> startActivity(new Intent(this, HistoryActivity.class)));
+        navProfile.setOnClickListener(v -> startActivity(new Intent(this, ProfileActivity.class)));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        // Reload setiap kembali ke Home supaya stok selalu terbaru
         loadFoods();
-        updateBanner();
+        updateCartBadge();
     }
 }

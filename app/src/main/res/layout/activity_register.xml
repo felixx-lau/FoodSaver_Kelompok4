@@ -62,6 +62,30 @@
             android:layout_marginBottom="16dp"/>
 
 
+        <!-- Nama Toko (Hanya muncul jika Partner) -->
+        <TextView
+            android:id="@+id/tvStoreNameLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nama Toko"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+            android:layout_marginBottom="6dp"
+            android:visibility="gone"/>
+
+        <EditText
+            android:id="@+id/etStoreName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Masukkan nama toko/warung"
+            android:inputType="text"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone"/>
+
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="#F5F5F5">
 
-
+    <!-- TOP BAR -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,16 +37,36 @@
                 android:textColor="#2E7D32"/>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvGreeting"
+        <FrameLayout
+            android:id="@+id/btnCart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hi!"
-            android:textSize="14sp"
-            android:textColor="#555555"/>
+            android:padding="8dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🛒"
+                android:textSize="24sp"/>
+
+            <TextView
+                android:id="@+id/tvCartBadge"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:background="#FF5252"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:text="0"
+                android:layout_gravity="top|end"
+                android:visibility="gone"/>
+        </FrameLayout>
     </LinearLayout>
 
-
+    <!-- SEARCH BAR -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -65,11 +85,12 @@
             android:paddingEnd="12dp"
             android:textSize="14sp"
             android:inputType="text"
+            android:background="@android:drawable/edit_text"
             android:imeOptions="actionSearch"
             android:singleLine="true"/>
     </LinearLayout>
 
-
+    <!-- KONTEN UTAMA -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -82,48 +103,14 @@
             android:orientation="vertical"
             android:paddingBottom="16dp">
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#E8F5E9"
-                android:padding="12dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="14dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tvBannerTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Kamu sudah selamatkan 0 porsi makanan"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textColor="#2E7D32"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Terus kurangi food waste minggu ini"
-                        android:textSize="12sp"
-                        android:textColor="#388E3C"/>
-                </LinearLayout>
-            </LinearLayout>
-
-
+            <!-- KATEGORI -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Kategori"
                 android:textSize="13sp"
-                android:textColor="#555555"
+                android:textStyle="bold"
+                android:textColor="#333333"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"/>
@@ -141,85 +128,35 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <LinearLayout
-                        android:id="@+id/catBakery"
-                        android:layout_width="64dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:layout_marginEnd="12dp">
-                        <TextView android:layout_width="48dp" android:layout_height="48dp" android:text="Bakery" android:textSize="10sp" android:gravity="center" android:background="#E8F5E9" android:textColor="#2E7D32"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/catRestoran"
-                        android:layout_width="64dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:layout_marginEnd="12dp">
-                        <TextView android:layout_width="48dp" android:layout_height="48dp" android:text="Restoran" android:textSize="10sp" android:gravity="center" android:background="#E8F5E9" android:textColor="#2E7D32"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/catKafe"
-                        android:layout_width="64dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center"
-                        android:layout_marginEnd="12dp">
-                        <TextView android:layout_width="48dp" android:layout_height="48dp" android:text="Kafe" android:textSize="10sp" android:gravity="center" android:background="#E8F5E9" android:textColor="#2E7D32"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/catSwalayan"
-                        android:layout_width="64dp"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center">
-                        <TextView android:layout_width="48dp" android:layout_height="48dp" android:text="Swalayan" android:textSize="10sp" android:gravity="center" android:background="#E8F5E9" android:textColor="#2E7D32"/>
-                    </LinearLayout>
+                    <TextView android:id="@+id/tabAll" android:layout_width="wrap_content" android:layout_height="32dp" android:text="Semua" android:textSize="12sp" android:textColor="#FFFFFF" android:background="#4CAF50" android:paddingStart="16dp" android:paddingEnd="16dp" android:gravity="center" android:layout_marginEnd="8dp" android:clickable="true" android:focusable="true"/>
+                    <TextView android:id="@+id/tabBakery" android:layout_width="wrap_content" android:layout_height="32dp" android:text="Bakery" android:textSize="12sp" android:textColor="#555555" android:background="#FFFFFF" android:paddingStart="16dp" android:paddingEnd="16dp" android:gravity="center" android:layout_marginEnd="8dp" android:clickable="true" android:focusable="true"/>
+                    <TextView android:id="@+id/tabRestoran" android:layout_width="wrap_content" android:layout_height="32dp" android:text="Restoran" android:textSize="12sp" android:textColor="#555555" android:background="#FFFFFF" android:paddingStart="16dp" android:paddingEnd="16dp" android:gravity="center" android:layout_marginEnd="8dp" android:clickable="true" android:focusable="true"/>
+                    <TextView android:id="@+id/tabKafe" android:layout_width="wrap_content" android:layout_height="32dp" android:text="Kafe" android:textSize="12sp" android:textColor="#555555" android:background="#FFFFFF" android:paddingStart="16dp" android:paddingEnd="16dp" android:gravity="center" android:layout_marginEnd="8dp" android:clickable="true" android:focusable="true"/>
+                    <TextView android:id="@+id/tabSwalayan" android:layout_width="wrap_content" android:layout_height="32dp" android:text="Swalayan" android:textSize="12sp" android:textColor="#555555" android:background="#FFFFFF" android:paddingStart="16dp" android:paddingEnd="16dp" android:gravity="center" android:clickable="true" android:focusable="true"/>
                 </LinearLayout>
             </HorizontalScrollView>
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="10dp">
+                android:text="Tersedia di dekatmu"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#1A1A1A"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="12dp"/>
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Tersedia di dekatmu"
-                    android:textSize="15sp"
-                    android:textStyle="bold"
-                    android:textColor="#1A1A1A"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Lihat semua"
-                    android:textSize="12sp"
-                    android:textColor="#4CAF50"/>
-            </LinearLayout>
-
-
+            <!-- LOADING -->
             <ProgressBar
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:visibility="gone"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginTop="32dp"/>
 
-
+            <!-- EMPTY STATE -->
             <TextView
                 android:id="@+id/tvEmpty"
                 android:layout_width="match_parent"
@@ -239,13 +176,12 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:nestedScrollingEnabled="false"
-                android:clipToPadding="false"
-                android:visibility="gone"/>
+                android:clipToPadding="false"/>
 
         </LinearLayout>
     </ScrollView>
 
-
+    <!-- BOTTOM NAVIGATION -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -259,18 +195,11 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🏠" android:textSize="20sp"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Home" android:textSize="10sp" android:textColor="#4CAF50" android:textStyle="bold"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/navSearch"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Cari" android:textSize="10sp" android:textColor="#888888"/>
         </LinearLayout>
 
         <LinearLayout
@@ -279,7 +208,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🧾" android:textSize="20sp"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Riwayat" android:textSize="10sp" android:textColor="#888888"/>
         </LinearLayout>
 
@@ -289,7 +221,10 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="👤" android:textSize="20sp"/>
             <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Profil" android:textSize="10sp" android:textColor="#888888"/>
         </LinearLayout>
     </LinearLayout>

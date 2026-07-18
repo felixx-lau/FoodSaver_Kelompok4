@@ -80,20 +80,30 @@ public class PartnerBookingAdapter extends RecyclerView.Adapter<PartnerBookingAd
 
             switch (booking.getStatus()) {
                 case Constants.BOOKING_PENDING:
-                    tvStatus.setText("Menunggu");
+                    tvStatus.setText("Pesanan Baru");
                     tvStatus.setTextColor(Color.parseColor("#E65100"));
                     tvStatus.setBackgroundColor(Color.parseColor("#FFF3E0"));
-                    btnUpdateStatus.setText("Tandai Siap");
+                    btnUpdateStatus.setText("Konfirmasi & Siapkan");
+                    btnUpdateStatus.setVisibility(View.VISIBLE);
+                    btnUpdateStatus.setOnClickListener(v ->
+                            listener.onUpdate(booking, Constants.BOOKING_CONFIRMED));
+                    break;
+
+                case Constants.BOOKING_CONFIRMED:
+                    tvStatus.setText("Sedang Disiapkan");
+                    tvStatus.setTextColor(Color.parseColor("#7B1FA2"));
+                    tvStatus.setBackgroundColor(Color.parseColor("#F3E5F5"));
+                    btnUpdateStatus.setText("Siap Diambil");
                     btnUpdateStatus.setVisibility(View.VISIBLE);
                     btnUpdateStatus.setOnClickListener(v ->
                             listener.onUpdate(booking, Constants.BOOKING_READY));
                     break;
 
                 case Constants.BOOKING_READY:
-                    tvStatus.setText("Siap diambil");
+                    tvStatus.setText("Menunggu Diambil");
                     tvStatus.setTextColor(Color.parseColor("#1565C0"));
                     tvStatus.setBackgroundColor(Color.parseColor("#E3F2FD"));
-                    btnUpdateStatus.setText("Tandai Selesai");
+                    btnUpdateStatus.setText("Konfirmasi Selesai");
                     btnUpdateStatus.setVisibility(View.VISIBLE);
                     btnUpdateStatus.setOnClickListener(v ->
                             listener.onUpdate(booking, Constants.BOOKING_COMPLETED));

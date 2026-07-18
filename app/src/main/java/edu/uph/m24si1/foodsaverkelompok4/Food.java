@@ -10,6 +10,7 @@ public class Food {
     private String photoUrl;
     private int quantity;
     private String status;
+    private String partnerName;
     private String partnerAddress;
     private long createdAt;
 
@@ -18,7 +19,7 @@ public class Food {
 
     public Food(String foodId, String partnerId, String name, String description,
                 double originalPrice, double discountPrice, String photoUrl,
-                int quantity, String status, String partnerAddress, long createdAt) {
+                int quantity, String status, String partnerName, String partnerAddress, long createdAt) {
         this.foodId = foodId;
         this.partnerId = partnerId;
         this.name = name;
@@ -28,6 +29,7 @@ public class Food {
         this.photoUrl = photoUrl;
         this.quantity = quantity;
         this.status = status;
+        this.partnerName = partnerName;
         this.partnerAddress = partnerAddress;
         this.createdAt = createdAt;
     }
@@ -58,6 +60,9 @@ public class Food {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
+    public String getPartnerName() { return partnerName; }
+    public void setPartnerName(String partnerName) { this.partnerName = partnerName; }
 
     public String getPartnerAddress() { return partnerAddress; }
     public void setPartnerAddress(String partnerAddress) { this.partnerAddress = partnerAddress; }

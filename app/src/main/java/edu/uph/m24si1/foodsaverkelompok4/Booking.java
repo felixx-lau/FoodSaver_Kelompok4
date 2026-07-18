@@ -5,6 +5,7 @@ public class Booking {
     private String userId;
     private String foodId;
     private String partnerId;
+    private String partnerName;
     private String foodName;
     private String userName;
     private int quantity;
@@ -45,6 +46,9 @@ public class Booking {
 
     public String getPartnerId() { return partnerId; }
     public void setPartnerId(String partnerId) { this.partnerId = partnerId; }
+
+    public String getPartnerName() { return partnerName; }
+    public void setPartnerName(String partnerName) { this.partnerName = partnerName; }
 
     public String getFoodName() { return foodName; }
     public void setFoodName(String foodName) { this.foodName = foodName; }

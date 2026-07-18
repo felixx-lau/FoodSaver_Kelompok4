@@ -43,7 +43,9 @@
         <activity android:name=".RegisterActivity" android:exported="false"/>
         <activity android:name=".HomeActivity" android:exported="false"/>
         <activity android:name=".FoodDetailActivity" android:exported="false"/>
-        <activity android:name=".BookingActivity" android:exported="false"/>
+        <activity android:name=".CartActivity" android:exported="false"/>
+        <activity android:name=".CheckoutActivity" android:exported="false"/>
+        <activity android:name=".OrderSuccessActivity" android:exported="false"/>
         <activity android:name=".HistoryActivity" android:exported="false"/>
         <activity android:name=".ProfileActivity" android:exported="false"/>
 

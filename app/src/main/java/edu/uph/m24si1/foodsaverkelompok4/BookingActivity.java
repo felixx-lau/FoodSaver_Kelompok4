@@ -143,6 +143,12 @@ public class BookingActivity extends AppCompatActivity {
         booking.setDeliveryAddress(deliveryAddress);
         booking.setScheduledTimeSlot(timeSlot);
 
+        // Set Nama Toko
+        Food food = dbHelper.getFoodById(foodId);
+        if (food != null) {
+            booking.setPartnerName(food.getPartnerName());
+        }
+
         // Simpan booking ke SQLite
         boolean bookingSuccess = dbHelper.insertBooking(booking);
 

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F5F5">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#FFFFFF"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:elevation="2dp">
+
+        <TextView
+            android:id="@+id/tvBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="← "
+            android:textSize="20sp"
+            android:textColor="#1A1A1A"
+            android:padding="8dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Keranjang Saya"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="#1A1A1A"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+    <!-- Empty State -->
+    <LinearLayout
+        android:id="@+id/layoutEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🛒" android:textSize="64sp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Keranjangmu masih kosong" android:textSize="16sp" android:textColor="#888888" android:layout_marginTop="16dp"/>
+        <Button android:id="@+id/btnGoShopping" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mulai Belanja" android:backgroundTint="#4CAF50" android:layout_marginTop="24dp" android:textAllCaps="false"/>
+    </LinearLayout>
+
+    <!-- Cart List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp"
+        android:clipToPadding="false"/>
+
+    <!-- Bottom Summary -->
+    <LinearLayout
+        android:id="@+id/layoutSummary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#FFFFFF"
+        android:padding="16dp"
+        android:elevation="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Total Pembayaran"
+                android:textSize="14sp"
+                android:textColor="#555555"/>
+            <TextView
+                android:id="@+id/tvTotalPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rp0"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#2E7D32"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnCheckout"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="Pesan Sekarang"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:backgroundTint="#4CAF50"
+            android:textColor="#FFFFFF"/>
+    </LinearLayout>
+</LinearLayout>
